@@ -53,7 +53,7 @@ function addStoneToWorld(stone) {
     deleteButton.textContent = 'X';
     deleteButton.className = 'stone-delete';
     deleteButton.style.left = `${body.position.x + radius - 10}px`;
-    deleteButton.style.top = `${body.position.y - radius - 10}px`;
+    deleteButton.style.top = `${body.position.y - radius + 50}px`; // Adjust the delete button position to avoid overlapping with the title
     deleteButton.onclick = () => deleteStone(stone.id);
     document.getElementById('jar-container').appendChild(deleteButton);
 
@@ -121,12 +121,12 @@ Matter.Events.on(engine, 'afterUpdate', () => {
             const radius = body.circleRadius || 30; // Default radius if not defined
             
             // Center the label on the stone
-            body.labelElement.style.left = `${body.position.x - radius}px`;
-            body.labelElement.style.top = `${body.position.y - radius}px`;
+            body.labelElement.style.left = `${body.position.x - body.labelElement.offsetWidth / 2}px`;
+            body.labelElement.style.top = `${body.position.y - body.labelElement.offsetHeight / 2}px`;
 
-            // Center the delete button on the stone
-            body.deleteElement.style.left = `${body.position.x - radius}px`;
-            body.deleteElement.style.top = `${body.position.y - radius}px`;
+            // Center the delete button horizontally but keep it at the top of the stone
+            body.deleteElement.style.left = `${body.position.x - body.deleteElement.offsetWidth / 2}px`;
+            body.deleteElement.style.top = `${body.position.y - radius - body.deleteElement.offsetHeight}px`;
         }
     });
 });
