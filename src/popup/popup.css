@@ -10,7 +10,8 @@ body {
     min-width: 400px;
     overflow: hidden;
     height: 800px; /* Cambiar la altura del popup a 800px */
-    justify-content: space-between;
+    justify-content: flex-start; /* Alinear los elementos al inicio para evitar espacio entre ellos */
+    gap: 0; /* Eliminar cualquier espacio adicional entre los elementos */
 }
 
 #jar-container {
@@ -19,9 +20,11 @@ body {
     border: 2px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px 0;
+    margin: 0; /* Eliminar el margen superior e inferior */
     background-color: #ffffff;
     flex-shrink: 0;
+    padding: 0; /* Eliminar el relleno */
+    box-sizing: border-box; /* Asegurar que el tamaño incluye bordes y relleno */
 }
 
 canvas {
@@ -36,11 +39,12 @@ canvas {
     justify-content: space-between;
     gap: 5px;
     width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
+    padding: 0; /* Eliminar el relleno */
+    box-sizing: border-box; /* Asegurar que el tamaño incluye bordes y relleno */
     position: relative;
     z-index: 1;
     height: auto;
+    margin: 0; /* Eliminar el margen superior e inferior */
 }
 
 #stone-form input, #stone-form select, #stone-form button {
