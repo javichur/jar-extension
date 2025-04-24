@@ -8,17 +8,21 @@ body {
     align-items: center;
     background-color: #f9f9f9;
     min-width: 400px;
+    overflow: hidden;
+    height: 800px; /* Cambiar la altura del popup a 800px */
+    justify-content: space-between;
 }
 
 #jar-container {
     position: relative;
     width: 400px;
-    height: 600px;
+    height: 60%; /* Reduced height to make space for the form */
     border: 2px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
     margin: 20px 0;
     background-color: #ffffff;
+    flex-shrink: 0;
 }
 
 canvas {
@@ -28,20 +32,28 @@ canvas {
 /* Form styles */
 #stone-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
 }
 
 #stone-form input, #stone-form select, #stone-form button {
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 16px;
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 #stone-form button {
+    flex: 0.5;
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
@@ -57,6 +69,9 @@ canvas {
     padding: 0;
     width: 100%;
     max-width: 400px;
+    flex-shrink: 0;
+    height: 15%;
+    overflow-y: auto;
 }
 
 #stone-list li {

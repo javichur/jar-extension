@@ -7,7 +7,7 @@ const render = Render.create({
     engine: engine,
     options: {
         width: 400,
-        height: 600,
+        height: 400, // Reducir la altura máxima a 400px
         wireframes: false,
         background: '#f0f0f0'
     }
@@ -15,9 +15,9 @@ const render = Render.create({
 
 // Create the jar boundaries
 const jarWalls = [
-    Bodies.rectangle(200, 590, 400, 20, { isStatic: true }), // Bottom
-    Bodies.rectangle(10, 300, 20, 600, { isStatic: true }), // Left
-    Bodies.rectangle(390, 300, 20, 600, { isStatic: true })  // Right
+    Bodies.rectangle(200, 390, 400, 20, { isStatic: true }), // Ajustar la posición del fondo
+    Bodies.rectangle(10, 200, 20, 400, { isStatic: true }), // Ajustar la altura de la pared izquierda
+    Bodies.rectangle(390, 200, 20, 400, { isStatic: true })  // Ajustar la altura de la pared derecha
 ];
 World.add(engine.world, jarWalls);
 
