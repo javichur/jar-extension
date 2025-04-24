@@ -28,11 +28,27 @@ chrome.storage.local.get(['stones'], (result) => {
     stones.forEach(stone => addStoneToWorld(stone));
 });
 
+// Helper function to generate random vertices for irregular shapes
+function generateRandomVertices(radius, vertexCount) {
+    const vertices = [];
+    for (let i = 0; i < vertexCount; i++) {
+        const angle = (Math.PI * 2 * i) / vertexCount;
+        const randomOffset = Math.random() * 0.3 + 0.7; // Randomize radius between 70% and 100%
+        const x = Math.cos(angle) * radius * randomOffset;
+        const y = Math.sin(angle) * radius * randomOffset;
+        vertices.push({ x, y });
+    }
+    return vertices;
+}
+
 // Updated addStoneToWorld to include labels and delete buttons
 function addStoneToWorld(stone) {
     const sizeMap = { large: 50, medium: 30, small: 20 };
     const radius = sizeMap[stone.size];
-    const body = Bodies.polygon(200, 100, Math.floor(Math.random() * 5) + 3, radius, {
+    const vertexCount = Math.floor(Math.random() * 5) + 5; // Randomize vertex count between 5 and 9
+    const vertices = generateRandomVertices(radius, vertexCount);
+
+    const body = Bodies.fromVertices(200, 100, [vertices], {
         label: stone.title,
         render: {
             fillStyle: stone.color
