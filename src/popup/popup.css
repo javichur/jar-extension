@@ -9,7 +9,7 @@ body {
     background-color: #f9f9f9;
     min-width: 400px;
     overflow: hidden;
-    height: 800px; /* Cambiar la altura del popup a 800px */
+    height: 100%; /* Asegurar que el cuerpo ocupa el 100% de la altura del popup */
     justify-content: flex-start; /* Alinear los elementos al inicio para evitar espacio entre ellos */
     gap: 0; /* Eliminar cualquier espacio adicional entre los elementos */
 }
