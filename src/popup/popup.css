@@ -16,7 +16,6 @@ body {
 #jar-container {
     position: relative;
     width: 400px;
-    height: 60%; /* Reduced height to make space for the form */
     border: 2px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
@@ -35,12 +34,13 @@ canvas {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
     position: relative;
     z-index: 1;
+    height: auto;
 }
 
 #stone-form input, #stone-form select, #stone-form button {

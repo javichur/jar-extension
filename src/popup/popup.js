@@ -26,10 +26,9 @@ let stones = [];
 chrome.storage.local.get(['stones'], (result) => {
     stones = result.stones || [];
     stones.forEach(stone => addStoneToWorld(stone));
-    updateStoneList();
 });
 
-// Add stone to Matter.js world
+// Updated addStoneToWorld to include labels and delete buttons
 function addStoneToWorld(stone) {
     const sizeMap = { large: 50, medium: 30, small: 20 };
     const radius = sizeMap[stone.size];
@@ -41,31 +40,45 @@ function addStoneToWorld(stone) {
     });
     body.customId = stone.id;
     World.add(engine.world, body);
+
+    // Add label and delete button
+    const label = document.createElement('div');
+    label.textContent = stone.title;
+    label.className = 'stone-label';
+    label.style.left = `${body.position.x - radius}px`;
+    label.style.top = `${body.position.y - radius - 10}px`;
+    document.getElementById('jar-container').appendChild(label);
+
+    const deleteButton = document.createElement('div');
+    deleteButton.textContent = 'X';
+    deleteButton.className = 'stone-delete';
+    deleteButton.style.left = `${body.position.x + radius - 10}px`;
+    deleteButton.style.top = `${body.position.y - radius - 10}px`;
+    deleteButton.onclick = () => deleteStone(stone.id);
+    document.getElementById('jar-container').appendChild(deleteButton);
+
+    body.labelElement = label;
+    body.deleteElement = deleteButton;
 }
 
-// Update stone list in the popup
-function updateStoneList() {
-    const stoneList = document.getElementById('stone-list');
-    stoneList.innerHTML = '';
-    stones.forEach(stone => {
-        const li = document.createElement('li');
-        li.textContent = `${stone.title} (${stone.size})`;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.onclick = () => deleteStone(stone.id);
-        li.appendChild(deleteButton);
-        stoneList.appendChild(li);
-    });
-}
-
-// Delete stone
+// Updated deleteStone to remove labels and delete buttons
 function deleteStone(id) {
     stones = stones.filter(stone => stone.id !== id);
     chrome.storage.local.set({ stones });
-    const bodies = engine.world.bodies.filter(body => body.customId !== id);
-    World.clear(engine.world);
-    World.add(engine.world, [...jarWalls, ...bodies]);
-    updateStoneList();
+    const bodyToRemove = engine.world.bodies.find(body => body.customId === id);
+
+    if (bodyToRemove) {
+        // Remove associated elements
+        if (bodyToRemove.labelElement) {
+            bodyToRemove.labelElement.remove();
+        }
+        if (bodyToRemove.deleteElement) {
+            bodyToRemove.deleteElement.remove();
+        }
+
+        // Remove the body from the world
+        World.remove(engine.world, bodyToRemove);
+    }
 }
 
 // Handle form submission to create a new stone
@@ -79,7 +92,6 @@ document.getElementById('stone-form').addEventListener('submit', (e) => {
     stones.push(newStone);
     chrome.storage.local.set({ stones });
     addStoneToWorld(newStone);
-    updateStoneList();
     e.target.reset();
 });
 
@@ -101,3 +113,17 @@ const runner = Matter.Runner.create();
 Matter.Runner.run(runner, engine);
 
 Render.run(render);
+
+// Update the position of labels and delete buttons to center them on each stone
+Matter.Events.on(engine, 'afterUpdate', () => {
+    engine.world.bodies.forEach(body => {
+        if (body.labelElement && body.deleteElement) {
+            const radius = body.circleRadius || 30; // Default radius if not defined
+            body.labelElement.style.left = `${body.position.x - body.labelElement.offsetWidth / 2}px`;
+            body.labelElement.style.top = `${body.position.y - body.labelElement.offsetHeight / 2}px`;
+
+            body.deleteElement.style.left = `${body.position.x - body.deleteElement.offsetWidth / 2}px`;
+            body.deleteElement.style.top = `${body.position.y - body.deleteElement.offsetHeight / 2 + 20}px`; // Move delete button slightly below the label
+        }
+    });
+});
