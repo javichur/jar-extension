@@ -8,8 +8,7 @@ const render = Render.create({
     options: {
         width: 400,
         height: 400, // Reducir la altura máxima a 400px
-        wireframes: false,
-        background: '#f0f0f0'
+        wireframes: false
     }
 });
 
@@ -129,6 +128,12 @@ const runner = Matter.Runner.create();
 Matter.Runner.run(runner, engine);
 
 Render.run(render);
+
+// Eliminar explícitamente el fondo del canvas después de Render.run()
+const canvasElement = document.getElementById('jar-canvas');
+if (canvasElement) {
+    canvasElement.style.background = 'none';
+}
 
 // Update the position of labels and delete buttons to center them on each stone
 Matter.Events.on(engine, 'afterUpdate', () => {
