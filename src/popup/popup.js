@@ -42,7 +42,8 @@ function generateRandomVertices(radius, vertexCount) {
 
 // Updated addStoneToWorld to include labels and delete buttons
 function addStoneToWorld(stone) {
-    const sizeMap = { large: 50, medium: 30, small: 20 };
+    // Duplicar el tamaño de las piedras
+    const sizeMap = { large: 80, medium: 40, small: 20 };
     const radius = sizeMap[stone.size];
     const vertexCount = Math.floor(Math.random() * 5) + 5; // Randomize vertex count between 5 and 9
     const vertices = generateRandomVertices(radius, vertexCount);
