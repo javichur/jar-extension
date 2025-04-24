@@ -5,3 +5,7 @@ Jar Extension es una extensión para Chrome que permite a los usuarios gestionar
 🤖+👨‍💻: Cada commit en el repositorio (https://github.com/javichur/jar-extension) especifica la contribución de humano y la contribución de Copilot Agent con GPT-4o en vscode. Se incluyen los Prompts en los commits, así como los bugs/tareas que no pude resolver con Copilot.
 
 ![Ejemplo de Tarro](docs/mi-tarro-ejemplo.png)
+
+## Video de Ejemplo
+
+[![Video de Ejemplo](https://img.youtube.com/vi/gexVjOnNbxo/0.jpg)](https://youtu.be/gexVjOnNbxo)
