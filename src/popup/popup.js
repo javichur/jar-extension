@@ -12,11 +12,11 @@ const render = Render.create({
     }
 });
 
-// Create the jar boundaries
+// Cambiar las paredes negras a transparentes
 const jarWalls = [
-    Bodies.rectangle(200, 390, 400, 20, { isStatic: true }), // Ajustar la posición del fondo
-    Bodies.rectangle(10, 200, 20, 400, { isStatic: true }), // Ajustar la altura de la pared izquierda
-    Bodies.rectangle(390, 200, 20, 400, { isStatic: true })  // Ajustar la altura de la pared derecha
+    Bodies.rectangle(200, 390, 400, 20, { isStatic: true, render: { fillStyle: 'transparent' } }), // Fondo transparente
+    Bodies.rectangle(10, 200, 50, 400, { isStatic: true, render: { fillStyle: 'transparent' } }), // Pared izquierda transparente
+    Bodies.rectangle(380, 200, 40, 420, { isStatic: true, render: { fillStyle: 'transparent' } })  // Pared derecha transparente
 ];
 World.add(engine.world, jarWalls);
 
