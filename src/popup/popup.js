@@ -119,11 +119,14 @@ Matter.Events.on(engine, 'afterUpdate', () => {
     engine.world.bodies.forEach(body => {
         if (body.labelElement && body.deleteElement) {
             const radius = body.circleRadius || 30; // Default radius if not defined
-            body.labelElement.style.left = `${body.position.x - body.labelElement.offsetWidth / 2}px`;
-            body.labelElement.style.top = `${body.position.y - body.labelElement.offsetHeight / 2}px`;
+            
+            // Center the label on the stone
+            body.labelElement.style.left = `${body.position.x - radius}px`;
+            body.labelElement.style.top = `${body.position.y - radius}px`;
 
-            body.deleteElement.style.left = `${body.position.x - body.deleteElement.offsetWidth / 2}px`;
-            body.deleteElement.style.top = `${body.position.y - body.deleteElement.offsetHeight / 2 + 20}px`; // Move delete button slightly below the label
+            // Center the delete button on the stone
+            body.deleteElement.style.left = `${body.position.x - radius}px`;
+            body.deleteElement.style.top = `${body.position.y - radius}px`;
         }
     });
 });
