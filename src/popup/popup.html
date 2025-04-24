@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jar Extension</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div id="jar-container">
+        <canvas id="jar-canvas"></canvas>
+    </div>
+    <form id="stone-form">
+        <input type="text" id="stone-title" placeholder="Stone Title" required>
+        <select id="stone-size">
+            <option value="large">Large</option>
+            <option value="medium">Medium</option>
+            <option value="small">Small</option>
+        </select>
+        <button type="submit">Add Stone</button>
+    </form>
+    <ul id="stone-list"></ul>
+    <script src="matter.min.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

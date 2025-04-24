@@ -1,0 +1,84 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    min-width: 400px;
+}
+
+#jar-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+    background-color: #ffffff;
+}
+
+canvas {
+    display: block;
+}
+
+/* Form styles */
+#stone-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#stone-form input, #stone-form select, #stone-form button {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#stone-form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#stone-form button:hover {
+    background-color: #45a049;
+}
+
+/* Stone list styles */
+#stone-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+#stone-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#stone-list button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#stone-list button:hover {
+    background-color: #d32f2f;
+}
