@@ -20,12 +20,32 @@ const jarWalls = [
 ];
 World.add(engine.world, jarWalls);
 
-// Load stones from storage
+// Detect if running inside a Chrome extension
+const isChromeExtension = typeof chrome !== 'undefined' && chrome.storage;
+
+// Load stones from storage or URL query params
 let stones = [];
-chrome.storage.local.get(['stones'], (result) => {
-    stones = result.stones || [];
+if (isChromeExtension) {
+    chrome.storage.local.get(['stones'], (result) => {
+        stones = result.stones || [];
+        stones.forEach(stone => addStoneToWorld(stone));
+    });
+} else {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stonesParam = urlParams.get('stones');
+    stones = stonesParam ? JSON.parse(decodeURIComponent(stonesParam)) : [];
     stones.forEach(stone => addStoneToWorld(stone));
-});
+}
+
+// Helper function to update URL with stones
+function updateURLWithStones() {
+    if (!isChromeExtension) {
+        const urlParams = new URLSearchParams();
+        urlParams.set('stones', encodeURIComponent(JSON.stringify(stones)));
+        const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+        window.history.replaceState(null, '', newUrl);
+    }
+}
 
 // Helper function to generate random vertices for irregular shapes
 function generateRandomVertices(radius, vertexCount) {
@@ -38,6 +58,11 @@ function generateRandomVertices(radius, vertexCount) {
         vertices.push({ x, y });
     }
     return vertices;
+}
+
+// Generate a valid 6-character hexadecimal color
+function generateRandomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
 
 // Updated addStoneToWorld to include labels and delete buttons
@@ -75,12 +100,21 @@ function addStoneToWorld(stone) {
 
     body.labelElement = label;
     body.deleteElement = deleteButton;
+
+    // Update URL if not in Chrome extension
+    updateURLWithStones();
 }
 
 // Updated deleteStone to remove labels and delete buttons
 function deleteStone(id) {
     stones = stones.filter(stone => stone.id !== id);
-    chrome.storage.local.set({ stones });
+
+    if (isChromeExtension) {
+        chrome.storage.local.set({ stones });
+    } else {
+        updateURLWithStones();
+    }
+
     const bodyToRemove = engine.world.bodies.find(body => body.customId === id);
 
     if (bodyToRemove) {
@@ -97,16 +131,22 @@ function deleteStone(id) {
     }
 }
 
-// Handle form submission to create a new stone
+// Updated form submission handler to use the new color generator
 document.getElementById('stone-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const title = document.getElementById('stone-title').value;
     const size = document.getElementById('stone-size').value;
-    const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`; // Random color
+    const color = generateRandomColor(); // Use the new color generator
     const id = Date.now().toString();
     const newStone = { id, title, size, color };
     stones.push(newStone);
-    chrome.storage.local.set({ stones });
+
+    if (isChromeExtension) {
+        chrome.storage.local.set({ stones });
+    } else {
+        updateURLWithStones();
+    }
+
     addStoneToWorld(newStone);
     e.target.reset();
 });

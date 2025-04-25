@@ -11,6 +11,7 @@ body {
     height: 100%; /* Asegurar que el cuerpo ocupa el 100% de la altura del popup */
     justify-content: flex-start; /* Alinear los elementos al inicio para evitar espacio entre ellos */
     gap: 0; /* Eliminar cualquier espacio adicional entre los elementos */
+    background-color: #F1F0F0; /* Set background color to match the jar background */
 }
 
 /* Cambiar el fondo del tarro a una imagen */
@@ -39,13 +40,13 @@ canvas {
     align-items: center;
     justify-content: space-between;
     gap: 5px;
-    width: 100%;
+    width: calc(100% - 30px); /* Ensure the form fits within the container with 20px margin on each side */
     padding: 0; /* Eliminar el relleno */
     box-sizing: border-box; /* Asegurar que el tamaño incluye bordes y relleno */
     position: relative;
     z-index: 1;
     height: auto;
-    margin: 0; /* Eliminar el margen superior e inferior */
+    margin: 15px auto; /* Add 20px margin to the top and bottom, and auto for left and right */
 }
 
 #stone-form input, #stone-form select, #stone-form button {
@@ -62,6 +63,7 @@ canvas {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
+    white-space: nowrap; /* Prevent text from wrapping to a new line */
 }
 
 #stone-form button:hover {
