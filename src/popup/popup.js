@@ -23,6 +23,19 @@ World.add(engine.world, jarWalls);
 // Detect if running inside a Chrome extension
 const isChromeExtension = typeof chrome !== 'undefined' && chrome.storage;
 
+// Import LZ-String for compression and decompression
+// Ensure to include lz-string library in your project
+
+// Compress stones data for shorter URLs
+function compressStones(stones) {
+    return LZString.compressToEncodedURIComponent(JSON.stringify(stones));
+}
+
+// Decompress stones data from URL
+function decompressStones(compressedStones) {
+    return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedStones));
+}
+
 // Load stones from storage or URL query params
 let stones = [];
 if (isChromeExtension) {
@@ -33,15 +46,15 @@ if (isChromeExtension) {
 } else {
     const urlParams = new URLSearchParams(window.location.search);
     const stonesParam = urlParams.get('stones');
-    stones = stonesParam ? JSON.parse(decodeURIComponent(stonesParam)) : [];
+    stones = stonesParam ? decompressStones(stonesParam) : [];
     stones.forEach(stone => addStoneToWorld(stone));
 }
 
-// Helper function to update URL with stones
+// Updated function to update URL with compressed stones
 function updateURLWithStones() {
     if (!isChromeExtension) {
         const urlParams = new URLSearchParams();
-        urlParams.set('stones', encodeURIComponent(JSON.stringify(stones)));
+        urlParams.set('stones', compressStones(stones));
         const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
         window.history.replaceState(null, '', newUrl);
     }
