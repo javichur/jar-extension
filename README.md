@@ -9,3 +9,7 @@ Jar Extension es una extensión para Chrome que permite a los usuarios gestionar
 ## Video de Ejemplo
 
 [![Video de Ejemplo](https://img.youtube.com/vi/gexVjOnNbxo/0.jpg)](https://youtu.be/gexVjOnNbxo)
+
+## Shareable live demo
+
+https://javiercampos.es/projects/stonesinajar/
