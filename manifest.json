@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Jar Extension",
+  "name": "Stones in a Jar",
   "version": "1.0",
-  "description": "A Chrome extension that provides a popup and settings page.",
+  "description": "It allows users to manage and view 'stones' within a virtual jar, representing tasks.",
   "permissions": [
     "storage"
   ],
