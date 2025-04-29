@@ -97,3 +97,18 @@ canvas {
     cursor: pointer;
     z-index: 3;
 }
+
+/* Styles for the settings button */
+#settings-button {
+    position: absolute;
+    top: 10px;
+    right: 5px; /* Move the button closer to the right edge */
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#settings-button:hover {
+    color: #4CAF50;
+}

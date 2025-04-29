@@ -205,3 +205,13 @@ Matter.Events.on(engine, 'afterUpdate', () => {
         }
     });
 });
+
+// Event listener for the settings button
+document.getElementById('settings-button').addEventListener('click', () => {
+    if (chrome.runtime && chrome.runtime.openOptionsPage) {
+        chrome.runtime.openOptionsPage();
+    } else {
+        // Open the settings page directly if not in a Chrome extension
+        window.location.href = '/src/settings/settings.html';
+    }
+});
